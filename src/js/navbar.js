@@ -2,9 +2,12 @@ const navbar = () =>{
     header.innerHTML = `
     <header class="pb-3">
         <div class="container">
-        <span><a href="" class="h3 text-white  font-weight-bold">The Hyper Progame</a>
+          <div class="m-2 ">
+            <a href="" class="h3 text-white font-weight-bold">The Hyper Progame</a>
+          </div>
+          <div>
             <input type="search" id="gameSearch" class="form-control">
-        </span>
+          </div>
         </div>
     </header>
     `;

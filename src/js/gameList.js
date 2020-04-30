@@ -12,37 +12,47 @@ const gameList = (argument) => {
       fetch(`${finalURL}`)
         .then((response) => response.json())
         .then((response) => {
-          
-          response.results.forEach((article) => {
-            
-            let platforms = "";
-                for(let i =0; i<article.platforms.length; i++){
-                platforms +=`
-                  <a href="" class="border border-white col-md-2 ml-3"><img src="src/img/${article.platforms[i].platform.id}.svg"></a>
-                  `};
+          let gameId = 0;
+          let cardStyle = "";
 
+          response.results.forEach((article) => {
+
+            if(gameId <= 8){
+              cardStyle = "style='dispay:block';"
+            }else{
+              cardStyle = "style='display:none'"
+            }
+
+            let platforms = "";
+                for(let j =0; j<article.platforms.length; j++){
+                platforms +=`
+                  <a href="" class="col-md-2 ml-3"><img src="src/img/${article.platforms[j].platform.id}.svg"></a>
+                  `};
             articles += `
-            <div class="border border-white col-md-4 pb-4">
-              <div class="border border-white cardGame">
-                <div class="border border-white card mx-auto obs">
+            <div class="col-md-4 pb-4">
+              <div id="${gameId}" class="cardGame" ${cardStyle}>
+                <div class="card mx-auto">
                 <a href="#gameDetail/${article.id}"> 
                   <img src="${article.background_image}" style="max-height:250px; max-width: 100%; border-radius: 12px 12px 0 0;">
                 </a>
-                  <div class="border border-white row mt-2">
+                  <div class="row">
                   ${platforms}
-                    <div class="border border-white m-3 d-flex align-self-center flex-column">
-                      <a href="#gameDetail/${article.id}" class="border border-white text-white h3 ml-3 int-link"> ${article.name}</a>
-                    </div>
-                      <p class="border border-white ml-3 p-2 text-center">Release date : ${article.released}</p>
-                      </a>
                   </div>
+                  <div class="m-3">
+                    <a href="#gameDetail/${article.id}" class="text-white h3 int-link"> ${article.name}</a>
+                  </div>
+                    <p class= p-2 text-center">Release date : ${article.released}</p>
                 </div>
               </div>
             </div>
             `;
-          });
-          
+            gameId++
+          })
+        
+          document.querySelector("#showMore").innerHTML = `<div class="btn btn-danger col-md-2 ">Show more</div>`
           document.querySelector(".page-list .articles").innerHTML = articles;
+          document.querySelector("#showMore").addEventListener("click", showMore)
+
         });
     };
 
@@ -55,6 +65,7 @@ const gameList = (argument) => {
         <section class="page-list">
           <div class="container">
           <div class="articles row pt-5">...loading</div>
+          <div id="showMore" class="d-flex justify-content-center mb-5"></div>
           </div>
         </section>
       `;
@@ -68,3 +79,4 @@ const gameList = (argument) => {
 
 export { gameList };
 import { navbar } from "./navbar"
+import { showMore } from "./showMore"
