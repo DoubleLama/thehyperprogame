@@ -9876,7 +9876,7 @@ h3 {
   }
 }
 body {
-  color: white;
+  color: #eee;
   background-color: #151515;
   font-family: "Ubuntu", sans-serif;
 }
@@ -9884,17 +9884,18 @@ body {
 .card {
   background-color: #202020;
   border-radius: 12px;
+  min-height: 300px;
 }
 
 a {
   text-decoration: none !important;
-  color: white;
+  color: #eee;
 }
 
 .int-link, .int-link:visited {
   text-decoration: none;
   position: relative;
-  color: white;
+  color: #eee;
 }
 .int-link:after, .int-link:visited:after {
   content: "";
@@ -9903,7 +9904,7 @@ a {
   bottom: 0;
   left: 0;
   width: 0%;
-  background: white;
+  background: #eee;
   transition: 0.2s;
 }
 .int-link:hover:after, .int-link:visited:hover:after {
@@ -9915,4 +9916,46 @@ a {
 }
 .int-link.block:hover, .int-link:visited.block:hover {
   background: #eee;
+}
+
+.hide .info {
+  min-height: 250px;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.gameImg {
+  max-height: 250px;
+  max-width: 100%;
+  border-radius: 12px 12px;
+}
+
+.visible {
+  display: block;
+}
+
+.invisible {
+  display: none;
+}
+
+#pageContent {
+  margin: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#pageContent header,
+#pageContent section {
+  margin-right: 4em;
+  margin-left: 4em;
+}
+
+#screenshots {
+  width: 40vw;
+  padding: 1em;
 }

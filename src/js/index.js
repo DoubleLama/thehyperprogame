@@ -5,6 +5,7 @@ const setRoute = () => {
 
   let header = document.getElementById("header")
   let pageContent = document.getElementById("pageContent");
+  window.scrollTo(0, 0);
   routes[path[0]](pageArgument);
   return true;
 };

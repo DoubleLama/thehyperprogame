@@ -1,25 +1,50 @@
 @import "~bootstrap/scss/bootstrap";
 
+
+$white: #eee;
+$red: #d20a32;
+$card-bg: #202020;
+
+@mixin margins {
+	margin-right: 4em;
+	margin-left: 4em;
+  }
+
+@mixin images{
+	width: 40vw;
+    padding: 1em;
+}
+
+@mixin mobile {
+	@media (max-width: $mobile-width) {
+	  @content;
+	}
+  }
+
 body{
-    color: white;
+    color:$white;
     background-color: #151515;
     font-family: 'Ubuntu', sans-serif;
 }
 
 .card{
-    background-color: #202020;
-    border-radius: 12px;
+    background-color: $card-bg;
+	border-radius: 12px;
+	min-height: 300px;;
+	// @include mobile{
+	// 	background: $card-bg;
+	// }
 }
 
 a{
 	text-decoration: none !important;
-	color: white;
+	color: $white;
 }
 
 .int-link, .int-link:visited {
 	text-decoration: none;
 	position: relative;
-	color: white;
+	color: $white;
 	
 	&:after {
 		content: '';
@@ -28,7 +53,7 @@ a{
 		bottom: 0;
 		left: 0;
 		width: 0%;
-		background: white;
+		background: $white;
 		transition: 0.2s;
 	}
 
@@ -41,7 +66,47 @@ a{
 		padding: 0.5em;
 		
 		&:hover {
-			background: #eee;
+			background: $white;
 		}
 	}
+}
+
+.hide .info{
+	min-height: 250px;
+}
+
+.show{
+	display: block;
+}
+
+.hide{
+	display: none;
+}
+
+.gameImg{
+	max-height:250px;
+	max-width: 100%;
+	border-radius: 12px 12px;
+}
+
+.visible{
+	display: block;
+}
+
+.invisible{
+	display: none;
+}
+
+#pageContent {
+	margin: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	header,
+	section {
+	  @include margins();
+	}
+  }
+
+#screenshots{
+	@include images();
 }
