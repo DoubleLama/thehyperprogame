@@ -46,57 +46,53 @@ const gameDetail = (argument) => {
               <h2 class="text-center">Game Info</h2>
                 <div class="row">
                 <div class ="col-md-3">
-                  <h4>Release date :</br></h4>
+                  <h4 class="mt-3">Release date :</br></h4>
                   <div class="release-date">${released}</div>
                   </div>
-                  <div class ="col-md-3">
-                    <h4>Genres : </br></h4>
-                    <div class="genres"></div></br>
-                    </div>
+                  
                     <div class ="col-md-3">
-                      <h4>Platforms : </br></h4>
+                      <h4 class="mt-3">Platforms : </br></h4>
                       <div class="platforms"></br></div></br>
                       </div>
-                      <div class ="col-md-3">
-                        <h4>Tags : </h4>
-                        <div class="tags"></br></div></br>
-                        </div>
+                      
                         <div class ="col-md-3">
-                        <h4>Publishers: </h4>
+                        <h4 class="mt-3">Publishers: </h4>
                         <a href="#gameList/games&ordering=-added&publishers=${publishers[0].id}" class="publishers">${publishers[0].name}</a>
                         </div>
                 <div class ="col-md-3">
-                <h4>Developers :</br></h4>
+                <h4 class="mt-3">Developers :</br></h4>
                   <div class ="developers"></div></br>
                   </div>
                   <div class ="col-md-3">
-                  <h4>Stores :</br></h4>
+                  <h4 class="mt-3">Stores :</br></h4>
                   <div class="stores"></div></br>
                   </div>
+                  <div class ="col-md-3">
+                    <h4 class="mt-3">Genres : </br></h4>
+                    <div class="genres"></div></br>
+                    </div>
+                  <div class ="col-md-6">
+                        <h4 class="text-center mt-3">Tags : </h4>
+                        <div class="tags"></br></div></br>
+                        </div>
                   <div class="col-md-10">
-                <h4>Description :</br></h4>
+                <h2 class="text-center mt-3">Description :</br></h2>
                   <div class="description">${description}</div></br>
                   </div>
                 </div>
-                <h4>Screenshots :</br></h4>
+                <h4 class="mt-3">Screenshots :</br></h4>
                   <div class="screenshots row text-center text-lg-left"></div></br>
-                <h4>Trailer :</br></h4>
+                <h4 class="mt-3">Trailer :</br></h4>
                   <div class="trailer col-md-6"> </div></br>
-                <h4>Youtube :</br></h4>
+                <h4 class="mt-3">Youtube :</br></h4>
                   <div class="youtube row text-center text-lg-left"></div></br>
-                <h4>Similar games :</br></h4>
+                <h4 class="mt-3">Similar games :</br></h4>
                   <div class="suggested row text-center text-lg-left"></div></br>
               </div>
             </div>
           </section>
         `;
           let articleDOM = document.querySelector(".page-detail .article");
-
-          articleDOM.querySelector("div.trailer").innerHTML += `
-        <video controls >
-          <source src="${clip.clip}" type="video/mp4">
-            Sorry, your browser doesn't support embedded videos.
-        </video>`;
 
           for (let i = 0; i < platforms.length; i++) {
             articleDOM.querySelector(
@@ -124,17 +120,25 @@ const gameDetail = (argument) => {
             ).innerHTML += `<a href="${stores[i].url}" id=${stores[i].id}>${stores[i].store.name}</a></br>`;
           }
 
+          articleDOM.querySelector("div.trailer").innerHTML += `
+                              <video controls>
+                                <source src="${clip.clip}" type="video/mp4">
+                                  Sorry, your browser doesn't support embedded videos.
+                              </video>`;
+
           fetch(`https://api.rawg.io/api/games/${id}/youtube`)
             .then((response1) => response1.json())
             .then((response1) => {
-              for (let i = 0; i < 4; i++) {
+              for (let i = 0; i < 3; i++) {
                 articleDOM.querySelector(
                   "div.youtube"
                 ).innerHTML += `
-                              <div class="col-lg-3 col-md-4 col-6 mb-4">
-                                <a href="https://www.youtube.com/watch?v=${response1.results[i].external_id}">
-                                      <img class="img-fluid" src="${response1.results[i].thumbnails.medium.url}" alt="">
-                                    </a>
+              
+                          
+                              <div class="col-lg-4 col-md-6 col-sm-10 my-3">
+                              <iframe id="ytplayer" type="text/html" 
+                              src="http://www.youtube.com/embed/${response1.results[i].external_id}?autoplay=0&origin=http://example.com"
+                              frameborder="0"/>
                               </div>`;
               }
             });
@@ -157,13 +161,10 @@ const gameDetail = (argument) => {
           fetch(`https://api.rawg.io/api/games/${id}/suggested`)
             .then((response3) => response3.json())
             .then((response3) => {
-              let suggestedGames = response3.results;
-                console.log(response3);
-                
+              let suggestedGames = response3.results;                
                 for (let i = 0; i < 6; i++) {
                   let platforms="";
                   suggestedGames[i].platforms.forEach((element) => {
-                    console.log(element.platform.name);
                     platforms += `<a href="#gameList/&dates=2019-09-01,2020-05-01&platforms=${element.platform.id}" class=col-md-2 pb-2 platform "><img src="src/img/${element.platform.id}.svg"></a>`;
                   });
                 articleDOM.querySelector("div.suggested").innerHTML += `
